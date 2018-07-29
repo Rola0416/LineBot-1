@@ -1,8 +1,8 @@
 ### 一、	普通文字事件(Message event)
 先看這段程式碼:  
-`def handle_message(event):  
-	line_bot_api.reply_message(event.reply_token,  
-		TextSendMessage(text="要回覆的話"))  `
+def handle_message(event):  
+  line_bot_api.reply_message(event.reply_token,  
+    TextSendMessage(text="要回覆的話"))  
 這段程式碼是伺服器收到使用者傳送訊息後執行的函式，  
 收到的訊息是一個名叫"event"的事件。  
 event裡重要的資料包含:  
@@ -21,13 +21,11 @@ event裡重要的資料包含:
 使用Push功能十分簡單，只要加上  
 line_bot_api.push_message(user_id, 訊息物件)  
 因此上面的程式可以修改為 :  
----
 def handle_message(event):  
-	line_bot_api.reply_message(event.reply_token,  
-		TextSendMessage(text="要回覆的話"))  
-	line_bot_api.push_message(user_id,  
-		TextSendMessage(text="第二句話"))  
----
+  line_bot_api.reply_message(event.reply_token,  
+    TextSendMessage(text="要回覆的話"))  
+  line_bot_api.push_message(user_id,  
+    TextSendMessage(text="第二句話"))  
 同理，再加上一行Push語法就可以說第三句話。
 
 ### 三、	特殊模板
