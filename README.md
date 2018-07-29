@@ -1,8 +1,8 @@
 ### 一、	普通文字事件(Message event)
 先看這段程式碼:  
 def handle_message(event):  
-  line_bot_api.reply_message(event.reply_token,  
-    TextSendMessage(text="要回覆的話"))  
+&emsp;&emsp;line_bot_api.reply_message(event.reply_token,  
+&emsp;&emsp;&emsp;&emsp;TextSendMessage(text="要回覆的話"))  
 這段程式碼是伺服器收到使用者傳送訊息後執行的函式，  
 收到的訊息是一個名叫"event"的事件。  
 event裡重要的資料包含:  
@@ -22,10 +22,10 @@ event裡重要的資料包含:
 line_bot_api.push_message(user_id, 訊息物件)  
 因此上面的程式可以修改為 :  
 def handle_message(event):  
-  line_bot_api.reply_message(event.reply_token,  
-    TextSendMessage(text="要回覆的話"))  
-  line_bot_api.push_message(user_id,  
-    TextSendMessage(text="第二句話"))  
+&emsp;&emsp;line_bot_api.reply_message(event.reply_token,  
+&emsp;&emsp;&emsp;&emsp;TextSendMessage(text="要回覆的話"))  
+&emsp;&emsp;line_bot_api.push_message(user_id,  
+&emsp;&emsp;&emsp;&emsp;TextSendMessage(text="第二句話"))  
 同理，再加上一行Push語法就可以說第三句話。
 
 ### 三、	特殊模板
@@ -38,21 +38,21 @@ URL事件則會引導使用者開啟一個網頁。
 #### 1. 確認介面訊息(Confirm Template)  
 ---
 message = TemplateSendMessage(  
-    alt_text='當畫面無法呈現時的替代文字(如電腦版)',  
-    template=ConfirmTemplate(  
-        text='上半部的文字(如上圖的Make a reservation?)',  
-        actions=\[  
-            PostbackTemplateAction(  
-                label='按鈕上的文字',  
-                text='使用者按下按鈕後會回覆的話',  
-                data='觸發Postback時夾帶的資料'  
-            ),  
-            MessageTemplateAction(  
-                label='按鈕上的文字',  
-                text='按下按鈕後使用者回覆的話'  
-            )  
-        \]  
-    )  
+&emsp;&emsp;alt_text='當畫面無法呈現時的替代文字(如電腦版)',  
+&emsp;&emsp;template=ConfirmTemplate(  
+&emsp;&emsp;&emsp;&emsp;text='上半部的文字(如上圖的Make a reservation?)',  
+&emsp;&emsp;&emsp;&emsp;actions=\[  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;PostbackTemplateAction(  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;label='按鈕上的文字',  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;text='使用者按下按鈕後會回覆的話',  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;data='觸發Postback時夾帶的資料'  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;),  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;MessageTemplateAction(  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;label='按鈕上的文字',  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;text='按下按鈕後使用者回覆的話'  
+&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;)  
+&emsp;&emsp;&emsp;&emsp;\]  
+&emsp;&emsp;)  
 )  
 line_bot_api.reply_message(event.reply_token, message)  
 ---
