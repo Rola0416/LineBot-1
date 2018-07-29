@@ -33,15 +33,16 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    if event.type == 'postback':
-        message = TextSendMessage(text="喔是喔~")
-        line_bot_api.reply_message(event.reply_token, message)
-    else :
-        message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text='你好嗎',
-            actions=[PostbackTemplateAction(label='很好',data='hi'),
-                PostbackTemplateAction(label='不好',data='bad')]))
-        line_bot_api.reply_message(event.reply_token, message)
+    message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text='你好嗎',
+        actions=[PostbackTemplateAction(label='很好',data='hi'),
+            PostbackTemplateAction(label='不好',data='bad')]))
+    line_bot_api.reply_message(event.reply_token, message)
 
+@handler.add(PostbackEvent, message=TextMessage)
+def handle_message(event):
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text = "喔是喔"))
+    
+    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
