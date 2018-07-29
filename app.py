@@ -33,9 +33,9 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.source.user_id)
-    line_bot_api.reply_message(event.reply_token, message)
-    line_bot_api.push_message(event.source.user_id, TextSendMessage(text='看三小'))
+    message = TemplateSendMessage(alt_text='Confirm template',template=ConfirmTemplate(text='你好嗎',
+        actions=[PostbackTemplateAction(label='postback',text='postback text',data='action=buy&itemid=1'),
+            MessageTemplateAction(label='message',text='message text')]))
 
 import os
 if __name__ == "__main__":
