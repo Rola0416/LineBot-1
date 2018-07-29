@@ -33,7 +33,7 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text=message.type,
+    message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text=event.type,
         actions=[PostbackTemplateAction(label='很好',data='hi'),
             PostbackTemplateAction(label='不好',data='bad')]))
     line_bot_api.reply_message(event.reply_token, message)
