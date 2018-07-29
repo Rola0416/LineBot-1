@@ -1,8 +1,10 @@
 ### 一、	普通文字事件(Message event)
 先看這段程式碼:  
+`
 def handle_message(event):  
 &emsp;&emsp;line_bot_api.reply_message(event.reply_token,  
 &emsp;&emsp;&emsp;&emsp;TextSendMessage(text="要回覆的話"))  
+`
 這段程式碼是伺服器收到使用者傳送訊息後執行的函式，  
 收到的訊息是一個名叫"event"的事件。  
 event裡重要的資料包含:  
@@ -36,7 +38,6 @@ Postback事件會觸發Postback Event，讓在使用者什麼都沒輸入的情�
 URL事件則會引導使用者開啟一個網頁。  
 
 #### 1. 確認介面訊息(Confirm Template)  
----
 message = TemplateSendMessage(  
 &emsp;&emsp;alt_text='當畫面無法呈現時的替代文字(如電腦版)',  
 &emsp;&emsp;template=ConfirmTemplate(  
@@ -55,4 +56,3 @@ message = TemplateSendMessage(
 &emsp;&emsp;)  
 )  
 line_bot_api.reply_message(event.reply_token, message)  
----
