@@ -33,8 +33,19 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
+    message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text=event.type,
+        actions=[PostbackTemplateAction(label='很好',data='good'),
+            PostbackTemplateAction(label='不好',data='bad')]))
     line_bot_api.reply_message(event.reply_token, message)
+
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    if event.postback.data == 'good':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text='真棒'))
+    elif event.postback.data == 'bad':
+        line_bot_api.reply_message(
+            event.reply_token, TextSendMessage(text='喔是喔'))
 
 import os
 if __name__ == "__main__":
