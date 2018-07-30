@@ -62,7 +62,7 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, message)
         if not find : 
             with open("user_dic",'a') as f:
-                f.write('\n!~' + event.source.user_id +'\n')
+                f.write('\n!~' + event.source.user_id)
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用請輸入你的姓名'))
 
 @handler.add(PostbackEvent)
