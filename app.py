@@ -62,6 +62,7 @@ def handle_message(event):
         userdict[event.source.user_id] = 'none'
         with open("user_dic",'w') as f:
             w.write(str(userdict))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
