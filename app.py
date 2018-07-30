@@ -42,7 +42,7 @@ def handle_message(event):
                 message = TemplateSendMessage(
                     alt_text='特殊訊息(手機版限定)',
                     template=ConfirmTemplate(
-                        text='本次課程會出席嗎',
+                        text='本次課程會出席嗎?',
                         actions=[
                             PostbackTemplateAction(
                                 label='出席',
@@ -55,7 +55,7 @@ def handle_message(event):
                         ]
                     )
                 )
-                for user in userdict.key():
+                for user in userdict.keys():
                     line_bot_api.push_message(user, message)
         else:
             message = TemplateSendMessage(
