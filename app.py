@@ -35,7 +35,7 @@ def callback():
 def handle_message(event):
     find = False
     with open("user_dic",'r') as f:
-	    for u in f.readlines():
+	for u in f.readlines():
             user = u.strip().split('~')
             if user[1] == event.source.user_id and user[0] != '!' :
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=user[0]+"你好"))
@@ -62,7 +62,7 @@ def handle_message(event):
                 line_bot_api.reply_message(event.reply_token, message)
     if not find : 
         with open("user_dic",'a') as f:
-            f.write(event.source.user_id + '~!\n')
+            f.write('\n!~' + event.source.user_id +'\n')
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用請輸入你的姓名'))
 
 
