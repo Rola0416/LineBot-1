@@ -75,7 +75,7 @@ def handle_postback(event):
     elif event.postback.data.split('~')[0] == 'right':
         userdict[event.source.user_id] = event.postback.data.split('~')[1]
         with open("user_dic",'w') as f:
-            w.write(str(userdict))
+            f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
 
 import os
