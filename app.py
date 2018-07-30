@@ -30,8 +30,6 @@ def callback():
         abort(400)
     return 'OK'
 
-admin = 'Uf29fc2131c95dd4e7c58787e878ec504'
-
 def process(userdict, event):
     if event.message.text == '點名':
         message = TemplateSendMessage(
@@ -99,9 +97,9 @@ def handle_postback(event):
             f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
     elif event.postback.data.split('~')[0] == 'presented':
-        line_bot_api.push_message(admin, event.postback.data.split('~')[1] + '說他會出席')
+        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', event.postback.data.split('~')[1] + '說他會出席')
     elif event.postback.data.split('~')[0] == 'leave':
-        line_bot_api.push_message(admin, event.postback.data.split('~')[1] + '說他要請假')
+        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', event.postback.data.split('~')[1] + '說他要請假')
 
 import os
 if __name__ == "__main__":
