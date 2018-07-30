@@ -33,19 +33,75 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TemplateSendMessage(alt_text='此訊息為特殊訊息，請到手機版查看',template=ConfirmTemplate(text=event.type,
-        actions=[PostbackTemplateAction(label='很好',data='good'),
-            PostbackTemplateAction(label='不好',data='bad')]))
-    line_bot_api.reply_message(event.reply_token, message)
-
+    userdict = {}
+    with open("user_dic",'r') as f:
+        userdict = eval(f.readline().strip())
+    try:
+        if userdict[event.source.user_id] != 'none':
+            if event.message.text == '點名':
+                for u in list(userdict.keys()):
+                    message = TemplateSendMessage(
+                        alt_text='特殊訊息',
+                        template=ConfirmTemplate(
+                            text='這堂課會你出席嗎?',
+                            actions=[
+                                PostbackTemplateAction(
+                                    label='出席',
+                                    data='presented~'+u
+                                ),
+                                PostbackTemplateAction(
+                                    label='請假',
+                                    data='leave~'+u
+                                )
+                            ]
+                        )
+                    )
+                    line_bot_api.push_message(u,message)
+            else:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]+"你好"))
+        else:
+            message = TemplateSendMessage(
+                alt_text='特殊訊息(手機版限定)',
+                template=ConfirmTemplate(
+                    text='您叫做'+event.message.text+'對嗎?',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='對',
+                            data='right~'+event.message.text
+                        ),
+                        PostbackTemplateAction(
+                            label='不是',
+                            data='wrong~'
+                        )
+                    ]
+                )
+            )
+            line_bot_api.reply_message(event.reply_token, message)
+    except:
+        userdict[event.source.user_id] = 'none'
+        with open("user_dic",'w') as f:
+            f.write(str(userdict))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
+    
 @handler.add(PostbackEvent)
 def handle_postback(event):
-    if event.postback.data == 'good':
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text='真棒'))
-    elif event.postback.data == 'bad':
-        line_bot_api.reply_message(
-            event.reply_token, TextSendMessage(text='喔是喔'))
+    userdict = {}
+    with open("user_dic",'r') as f:
+        userdict = eval(f.readline().strip())
+        
+    if event.postback.data.split('~')[0] == 'wrong':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請再次輸入您的姓名'))
+    elif event.postback.data.split('~')[0] == 'right':
+        userdict[event.source.user_id] = event.postback.data.split('~')[1]
+        with open("user_dic",'w') as f:
+            f.write(str(userdict))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
+    elif event.postback.data.split('~')[0] == 'presented':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你會出席，老師已經收到了'))
+        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他會出席'))
+    elif event.postback.data.split('~')[0] == 'leave':
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你要請假，老師已經收到了'))
+        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他要請假'))
 
 import os
 if __name__ == "__main__":
