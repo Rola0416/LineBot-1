@@ -39,7 +39,7 @@ def handle_message(event):
     try:
         if userdict[event.source.user_id] != 'none':
             if event.message.text == '點名':
-                m = TemplateSendMessage(
+                message = TemplateSendMessage(
                     alt_text='特殊訊息(手機版限定)',
                     template=ConfirmTemplate(
                         text='本次課程會出席嗎?',
@@ -56,7 +56,7 @@ def handle_message(event):
                     )
                 )
                 for u in userdict.keys():
-                    line_bot_api.push_message(u, m)
+                    line_bot_api.push_message(u,TextSendMessage(text='初次使用，請輸入您的名字'))
             else:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]))
         else:
