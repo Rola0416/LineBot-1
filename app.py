@@ -63,10 +63,10 @@ def handle_message(event):
                     line_bot_api.reply_message(event.reply_token, message)
             except:
                 
-    if find == False : 
-        with open("user_dic",'a') as f:
-            f.write('\n!~' + event.source.user_id +'\n')
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用請輸入你的姓名'))
+        if find == False : 
+            with open("user_dic",'a') as f:
+                f.write('\n!~' + event.source.user_id +'\n')
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用請輸入你的姓名'))
 
 
 @handler.add(PostbackEvent)
