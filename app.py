@@ -30,26 +30,6 @@ def callback():
         abort(400)
     return 'OK'
 
-def process(userdict, event):
-    if event.message.text == '點名':
-        message = TemplateSendMessage(
-                alt_text='特殊訊息(手機版限定)',
-                template=ConfirmTemplate(
-                    text='本次課程會出席嗎',
-                    actions=[
-                        PostbackTemplateAction(
-                            label='出席',
-                            data='presented~'+userdict[event.source.user_id]
-                        ),
-                        PostbackTemplateAction(
-                            label='請假',
-                            data='leave~'+userdict[event.source.user_id]
-                        )
-                    ]
-                )
-            )
-            line_bot_api.reply_message(event.reply_token, message)
-
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
@@ -58,7 +38,24 @@ def handle_message(event):
         userdict = eval(f.readline().strip())
     try:
         if userdict[event.source.user_id] != 'none':
-            process(userdict, event)
+            if event.message.text == '點名':
+                message = TemplateSendMessage(
+                    alt_text='特殊訊息(手機版限定)',
+                    template=ConfirmTemplate(
+                        text='本次課程會出席嗎',
+                        actions=[
+                            PostbackTemplateAction(
+                                label='出席',
+                                data='presented~'+userdict[event.source.user_id]
+                            ),
+                            PostbackTemplateAction(
+                                label='請假',
+                                data='leave~'+userdict[event.source.user_id]
+                            )
+                        ]
+                    )
+                )
+                line_bot_api.reply_message(event.reply_token, message)
         else:
             message = TemplateSendMessage(
                 alt_text='特殊訊息(手機版限定)',
