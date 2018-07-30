@@ -36,38 +36,34 @@ def handle_message(event):
     find = False
     with open("user_dic",'r') as f:
         for u in f.readlines():
-            try:
-                user = u.strip().split('~')
-                if user[1] == event.source.user_id and user[0] != '!' :
-                    line_bot_api.reply_message(event.reply_token, TextSendMessage(text=user[0]+"你好"))
-                    find = True
-                    break
-                elif user[1] == event.source.user_id and user[0] == '!' :
-                    find = True
-                    message = TemplateSendMessage(
-                        alt_text='姓名確認',
-                        template=ConfirmTemplate(
-                            text='您叫做'+event.message.text+'對嗎',
-                            actions=[
-                                PostbackTemplateAction(
-                                    label='不對',
-                                    data='wrong'
-                                ),
-                                PostbackTemplateAction(
-                                    label='對',
-                                    data='right~'+event.message.text
-                                )
-                            ]
-                        )
+            user = u.strip().split('~')
+            if user[1] == event.source.user_id and user[0] != '!' :
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=user[0]+"你好"))
+                find = True
+                break
+            elif user[1] == event.source.user_id and user[0] == '!' :
+                find = True
+                message = TemplateSendMessage(
+                    alt_text='姓名確認',
+                    template=ConfirmTemplate(
+                        text='您叫做'+event.message.text+'對嗎',
+                        actions=[
+                            PostbackTemplateAction(
+                                label='不對',
+                                data='wrong'
+                            ),
+                            PostbackTemplateAction(
+                                label='對',
+                                data='right~'+event.message.text
+                            )
+                        ]
                     )
-                    line_bot_api.reply_message(event.reply_token, message)
-            except:
-                
-        if find == False : 
+                )
+                line_bot_api.reply_message(event.reply_token, message)
+        if not find : 
             with open("user_dic",'a') as f:
                 f.write('\n!~' + event.source.user_id +'\n')
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用請輸入你的姓名'))
-
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
