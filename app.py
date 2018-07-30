@@ -55,8 +55,10 @@ def handle_message(event):
                         ]
                     )
                 )
-                for user in userdict.keys():
-                    line_bot_api.push_message(user, message)
+                for u in userdict.keys():
+                    line_bot_api.push_message(u, message)
+            else:
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]))
         else:
             message = TemplateSendMessage(
                 alt_text='特殊訊息(手機版限定)',
