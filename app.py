@@ -52,8 +52,12 @@ def process(userdict, event):
             )
             line_bot_api.reply_message(event.reply_token, message)
 
-
-def login(userdict, event):
+# 處理訊息
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    userdict = {}
+    with open("user_dic",'r') as f:
+        userdict = eval(f.readline().strip())
     try:
         if userdict[event.source.user_id] != 'none':
             process(userdict, event)
@@ -80,14 +84,6 @@ def login(userdict, event):
         with open("user_dic",'w') as f:
             f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
-
-# 處理訊息
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-    login(userdict, event)
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
