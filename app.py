@@ -56,7 +56,7 @@ def process(userdict, event):
 def login(userdict, event):
     try:
         if userdict[event.source.user_id] != 'none':
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='您好'+userdict[event.source.user_id]))
+            process(userdict, event)
         else:
             message = TemplateSendMessage(
                 alt_text='特殊訊息(手機版限定)',
@@ -88,7 +88,6 @@ def handle_message(event):
     with open("user_dic",'r') as f:
         userdict = eval(f.readline().strip())
     login(userdict, event)
-    
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
