@@ -37,11 +37,11 @@ def handle_message(event):
     with open("user_dic",'r') as f:
 	    for u in f.readlines():
             user = u.strip().split('~')
-            if user[1] == event.source.user_id && user[0] != '!' :
+            if user[1] == event.source.user_id and user[0] != '!' :
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=user[0]+"你好"))
                 find = True
                 break
-            elif user[1] == event.source.user_id && user[0] == '!' :
+            elif user[1] == event.source.user_id and user[0] == '!' :
                 find = True
                 message = TemplateSendMessage(
                     alt_text='姓名確認',
