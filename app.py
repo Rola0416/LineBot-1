@@ -30,13 +30,30 @@ def callback():
         abort(400)
     return 'OK'
 
-# 處理訊息
-@handler.add(MessageEvent, message=TextMessage)
-def handle_message(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-        
+admin = 'Uf29fc2131c95dd4e7c58787e878ec504'
+
+def process(userdict, event):
+    if event.message.text == '點名':
+        message = TemplateSendMessage(
+                alt_text='特殊訊息(手機版限定)',
+                template=ConfirmTemplate(
+                    text='本次課程會出席嗎',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='出席',
+                            data='presented~'+userdict[event.source.user_id]
+                        ),
+                        PostbackTemplateAction(
+                            label='請假',
+                            data='leave~'+userdict[event.source.user_id]
+                        )
+                    ]
+                )
+            )
+            line_bot_api.reply_message(event.reply_token, message)
+
+
+def login(userdict, event):
     try:
         if userdict[event.source.user_id] != 'none':
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='您好'+userdict[event.source.user_id]))
@@ -63,6 +80,15 @@ def handle_message(event):
         with open("user_dic",'w') as f:
             f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
+
+# 處理訊息
+@handler.add(MessageEvent, message=TextMessage)
+def handle_message(event):
+    userdict = {}
+    with open("user_dic",'r') as f:
+        userdict = eval(f.readline().strip())
+    login(userdict, event)
+    
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
@@ -77,6 +103,10 @@ def handle_postback(event):
         with open("user_dic",'w') as f:
             f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
+    elif event.postback.data.split('~')[0] == 'presented':
+        line_bot_api.push_message(admin, event.postback.data.split('~')[1] + '說他會出席')
+    elif event.postback.data.split('~')[0] == 'leave':
+        line_bot_api.push_message(admin, event.postback.data.split('~')[1] + '說他要請假')
 
 import os
 if __name__ == "__main__":
