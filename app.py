@@ -97,8 +97,10 @@ def handle_postback(event):
             f.write(str(userdict))
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
     elif event.postback.data.split('~')[0] == 'presented':
+        line_bot_api.push_message(event.reply_token, TextSendMessage(text = '你會出席，老師已經收到了'))
         line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他會出席'))
     elif event.postback.data.split('~')[0] == 'leave':
+        line_bot_api.push_message(event.reply_token, TextSendMessage(text = '你要請假，老師已經收到了'))
         line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他要請假'))
 
 import os
