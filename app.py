@@ -56,7 +56,7 @@ def handle_message(event):
                     )
                 )
                 for u in list(userdict.keys()):
-                    line_bot_api.push_message(u,message)
+                    line_bot_api.reply_message(event.reply_token,message)
             else:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]))
         else:
