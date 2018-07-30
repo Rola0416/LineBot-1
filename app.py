@@ -39,27 +39,26 @@ def handle_message(event):
     try:
         if userdict[event.source.user_id] != 'none':
             if event.message.text == '點名':
-                message = TemplateSendMessage(
-                    alt_text='特殊訊息',
-                    template=ConfirmTemplate(
-                        text='這堂課會你出席嗎?',
-                        actions=[
-                            PostbackTemplateAction(
-                                label='出席',
-                                data='presented~'+event.source.user_id
-                            ),
-                            PostbackTemplateAction(
-                                label='請假',
-                                data='leave~'+event.source.user_id
-                            )
-                        ]
-                    )
-                )
-                line_bot_api.reply_message(event.reply_token,TextSendMessage(text='啟動點名系統'))
                 for u in list(userdict.keys()):
+                    message = TemplateSendMessage(
+                        alt_text='特殊訊息',
+                        template=ConfirmTemplate(
+                            text='這堂課會你出席嗎?',
+                            actions=[
+                                PostbackTemplateAction(
+                                    label='出席',
+                                    data='presented~'+u
+                                ),
+                                PostbackTemplateAction(
+                                    label='請假',
+                                    data='leave~'+u
+                                )
+                            ]
+                        )
+                    )
                     line_bot_api.push_message(u,message)
             else:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]))
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]+"你好"))
         else:
             message = TemplateSendMessage(
                 alt_text='特殊訊息(手機版限定)',
