@@ -55,7 +55,8 @@ def handle_message(event):
                         ]
                     )
                 )
-                line_bot_api.reply_message(event.reply_token, message)
+                for user in userdict.key():
+                    line_bot_api.push_message(user, message)
         else:
             message = TemplateSendMessage(
                 alt_text='特殊訊息(手機版限定)',
