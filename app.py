@@ -57,6 +57,7 @@ def handle_message(event):
                             data='place_change'
                         )
                     ]
+                )
                 CarouselColumn(
                     title='13:00',
                     text='雨天\n溫度：22°\n濕度；1005',
@@ -70,9 +71,10 @@ def handle_message(event):
                             data='place_change'
                         )
                     ]
-                ]
-            )
+                )
+            ]
         )
+    )
     line_bot_api.reply_message(event.reply_token, message)
     
 @handler.add(PostbackEvent)
