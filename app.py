@@ -15,6 +15,12 @@ line_bot_api = LineBotApi('vlgEBYCHqjedWeOr0LghZpXN7KALtdXebquusc3WHQOPBwEGujQZ0
 # Channel Secret
 handler = WebhookHandler('dfaf82e2cd7fae694b3d6fc9bc691dac')
 
+#-----------函數區-------------
+
+
+
+#-----------------------------
+
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -33,75 +39,45 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-    try:
-        if userdict[event.source.user_id] != 'none':
-            if event.message.text == '點名':
-                for u in list(userdict.keys()):
-                    message = TemplateSendMessage(
-                        alt_text='特殊訊息',
-                        template=ConfirmTemplate(
-                            text='這堂課會你出席嗎?',
-                            actions=[
-                                PostbackTemplateAction(
-                                    label='出席',
-                                    data='presented~'+u
-                                ),
-                                PostbackTemplateAction(
-                                    label='請假',
-                                    data='leave~'+u
-                                )
-                            ]
-                        )
-                    )
-                    line_bot_api.push_message(u,message)
-            else:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]+"你好"))
-        else:
-            message = TemplateSendMessage(
-                alt_text='特殊訊息(手機版限定)',
-                template=ConfirmTemplate(
-                    text='您叫做'+event.message.text+'對嗎?',
+    message = TemplateSendMessage(
+        alt_text='天氣模板',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
+                    title='12:00',
+                    text='晴天\n溫度：30.5°\n濕度；223',
                     actions=[
-                        PostbackTemplateAction(
-                            label='對',
-                            data='right~'+event.message.text
+                        URITemplateAction(
+                            label='詳細資料',
+                            uri='https://weather.com/weather/today/l/25.02,121.46?par=google'
                         ),
                         PostbackTemplateAction(
-                            label='不是',
-                            data='wrong~'
+                            label='變更位置',
+                            data='place_change'
                         )
                     ]
-                )
+                CarouselColumn(
+                    title='13:00',
+                    text='雨天\n溫度：22°\n濕度；1005',
+                    actions=[
+                        URITemplateAction(
+                            label='詳細資料',
+                            uri='https://weather.com/weather/today/l/25.02,121.46?par=google'
+                        ),
+                        PostbackTemplateAction(
+                            label='變更位置',
+                            data='place_change'
+                        )
+                    ]
+                ]
             )
-            line_bot_api.reply_message(event.reply_token, message)
-    except:
-        userdict[event.source.user_id] = 'none'
-        with open("user_dic",'w') as f:
-            f.write(str(userdict))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
+        )
+    line_bot_api.reply_message(event.reply_token, message)
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-        
-    if event.postback.data.split('~')[0] == 'wrong':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請再次輸入您的姓名'))
-    elif event.postback.data.split('~')[0] == 'right':
-        userdict[event.source.user_id] = event.postback.data.split('~')[1]
-        with open("user_dic",'w') as f:
-            f.write(str(userdict))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
-    elif event.postback.data.split('~')[0] == 'presented':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你會出席，老師已經收到了'))
-        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他會出席'))
-    elif event.postback.data.split('~')[0] == 'leave':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你要請假，老師已經收到了'))
-        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他要請假'))
+    
 
 import os
 if __name__ == "__main__":
