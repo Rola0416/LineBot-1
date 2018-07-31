@@ -40,32 +40,33 @@ def handle_message(event):
                 CarouselColumn(
                     thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
                     title='板橋區',
-                    text='12:00 晴天',
+                    text='12:00 晴天\n溫度:30°\n降雨機率:2%',
                     actions=[
                         PostbackTemplateAction(
-                            label='更改位置',
-                            text='postback text1',
-                            data='place_change'
-                        ),
-                        URITemplateAction(
                             label='詳細資料',
-                            uri='https://weather.com/weather/today/l/25.02,121.46'
+                            data='12'
                         )
                     ]
                 ),
                 CarouselColumn(
                     thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
-                    title='台北市',
-                    text='12:00 晴天',
+                    title='板橋區',
+                    text='13:00 晴天\n溫度:32°\n降雨機率:0%',
                     actions=[
                         PostbackTemplateAction(
-                            label='更改位置',
-                            text='postback text1',
-                            data='place_change'
-                        ),
-                        URITemplateAction(
                             label='詳細資料',
-                            uri='https://weather.com/weather/today/l/25.02,121.46'
+                            data='13'
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://ananedu.com/a/5/9/images/imge011.jpg',
+                    title='板橋區',
+                    text='14:00 雨天\n溫度:25°\n降雨機率:86%',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='詳細資料',
+                            data='14'
                         )
                     ]
                 )
@@ -74,9 +75,17 @@ def handle_message(event):
     )
     line_bot_api.reply_message(event.reply_token, message)
     
-#@handler.add(PostbackEvent)
-#def handle_postback(event):
-    
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    if event.postback.data == '12':
+        line_bot_api.reply_message(event.reply_token, 
+            TextSendMessage(text='板橋\n12:00 晴天\n溫度:30°\n降雨機率:2%\n空氣品質:差\n紫外線:高'))
+    if event.postback.data == '13':
+        line_bot_api.reply_message(event.reply_token, 
+            TextSendMessage(text='板橋\n13:00 晴天\n溫度:32°\n降雨機率:0%\n空氣品質:差\n紫外線:過高'))
+    if event.postback.data == '14':
+        line_bot_api.reply_message(event.reply_token, 
+            TextSendMessage(text='板橋\n14:00 雨天\n溫度:25°\n降雨機率:86%\n空氣品質:普通\n紫外線:普通'))
 
 import os
 if __name__ == "__main__":
