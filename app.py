@@ -15,12 +15,6 @@ line_bot_api = LineBotApi('vlgEBYCHqjedWeOr0LghZpXN7KALtdXebquusc3WHQOPBwEGujQZ0
 # Channel Secret
 handler = WebhookHandler('dfaf82e2cd7fae694b3d6fc9bc691dac')
 
-#-----------函數區-------------
-
-
-
-#-----------------------------
-
 # 監聽所有來自 /callback 的 Post Request
 @app.route("/callback", methods=['POST'])
 def callback():
@@ -45,30 +39,33 @@ def handle_message(event):
             columns=[
                 CarouselColumn(
                     thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
-                    title='12:00',
-                    text='晴天\n溫度：30.5°\n濕度；223',
+                    title='12:00  晴天',
+                    text='板橋市\n溫度:30°\n濕度:225',
                     actions=[
+                        PostbackTemplateAction(
+                            label='更改位置',
+                            text='postback text1',
+                            data='place_change'
+                        ),
                         URITemplateAction(
                             label='詳細資料',
-                            uri='https://weather.com/weather/today/l/25.02,121.46?par=google'
-                        ),
-                        PostbackTemplateAction(
-                            label='變更位置',
-                            data='place_change'
+                            uri='https://weather.com/weather/today/l/25.02,121.46'
                         )
                     ]
-                )
+                ),
                 CarouselColumn(
-                    title='13:00',
-                    text='雨天\n溫度：22°\n濕度；1005',
+                    thumbnail_image_url='https://ananedu.com/a/5/9/images/imge011.jpg',
+                    title='13:00  雨天',
+                    text='板橋市\n溫度:22°\n濕度:1225',
                     actions=[
+                        PostbackTemplateAction(
+                            label='更改位置',
+                            text='postback text1',
+                            data='place_change'
+                        ),
                         URITemplateAction(
                             label='詳細資料',
-                            uri='https://weather.com/weather/today/l/25.02,121.46?par=google'
-                        ),
-                        PostbackTemplateAction(
-                            label='變更位置',
-                            data='place_change'
+                            uri='https://weather.com/weather/today/l/25.02,121.46'
                         )
                     ]
                 )
