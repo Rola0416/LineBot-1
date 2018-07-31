@@ -40,7 +40,7 @@ def handle_message(event):
                 CarouselColumn(
                     thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
                     title='板橋區',
-                    text='時間\t天氣\t溫度\t濕度\t\n12點\t晴天\t30°\t255\n13點\t晴天\t32°\t200\n14點\t晴天\t28°\t265',
+                    text='12:00  晴天\n溫度:25° 濕度:255\n13:00  晴天\n溫度:30° 濕度:245\n14:00  晴天\n溫度:28° 濕度:245',
                     actions=[
                         PostbackTemplateAction(
                             label='更改位置',
@@ -56,7 +56,7 @@ def handle_message(event):
                 CarouselColumn(
                     thumbnail_image_url='https://ananedu.com/a/5/9/images/imge015.jpg',
                     title='台北市',
-                    text='時間\t天氣\t溫度\t濕度\t\n12點\t晴天\t30°\t255\n13點\t晴天\t32°\t200\n14點\t晴天\t28°\t265',
+                    text='12:00  晴天\n溫度:25° 濕度:255\n13:00  晴天\n溫度:30° 濕度:245\n14:00  晴天\n溫度:28° 濕度:245',
                     actions=[
                         PostbackTemplateAction(
                             label='更改位置',
