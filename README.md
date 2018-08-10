@@ -14,6 +14,7 @@ Heroku:https://heroku.com
 最後回覆使用者。  
 而我們回復使用者的程式則要寫在範例程式第35行的handle_message(event)函式中。  
 現在我們來看看這段程式：
+
     def handle_message(event):
         message = TextSendMessage(text=event.message.text)
         line_bot_api.reply_message(event.reply_token, message)
