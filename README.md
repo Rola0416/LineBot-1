@@ -1,5 +1,4 @@
-# Line Bot + Python 教學
-### WMD搞定學院
+# Line Bot + Python 教學 - WMD搞定學院 #
 
 ## 1-1 註冊帳號
 Github:https://github.com
