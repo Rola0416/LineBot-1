@@ -4,8 +4,7 @@
 Github:https://github.com  
 Heroku:https://heroku.com
 
-## 1-2 下載範例程式
+## 1-2 上架範例程式
 
-## 1-3 上架範例程式
-
-## 2-1 程式解說
+## 2-1 流程解說
+我們可以將Line想像成一個傳遞對話的傳聲筒，  
