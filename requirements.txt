@@ -1,4 +1,2 @@
 line-bot-sdk
 flask
-oauth2client
-gspread
