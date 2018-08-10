@@ -45,3 +45,7 @@ Heroku:https://heroku.com
 我們接到event資料包後把使用者輸入的話用TextSendMessage()重新打包，  
 然後用line_bot_api.reply_message()傳回去，  
 因此現在我們的機器人只是一個人云亦云的學舌鳥而已。
+
+## 2-2 小試身手
+現在我們試著修改範例程式，  
+讓我們的程式可以對某些關鍵字有所反應。  
