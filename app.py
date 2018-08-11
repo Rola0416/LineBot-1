@@ -7,6 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+import requests
 
 app = Flask(__name__)
 
@@ -30,79 +31,36 @@ def callback():
         abort(400)
     return 'OK'
 
+#讀取成員名單
+def GetUserList():
+    url = "https://script.google.com/macros/s/AKfycbwVs2Si91yKz6m3utpaPtsttbh_lUQ8LOQM3Zud2hPFxXCgW3u1/exec"
+    payload = {
+        'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
+        'sheetTag':"成員列表",
+        'row': 2,
+        'col': 1,
+        'endRow' : 51,
+        'endCol' : 20
+    }
+    resp = requests.get(url, params=payload)
+    userlist = resp.text.split(',')
+    for i in range(num(userlist)):
+        if userlist[i] == '':
+            del userlist[i]
+    users = []
+    for i in range(num(userlist)/3):
+        users.append([userlist[i],userlist[i+1],userlist[i+2]])
+    return users
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-    try:
-        if userdict[event.source.user_id] != 'none':
-            if event.message.text == '點名':
-                for u in list(userdict.keys()):
-                    message = TemplateSendMessage(
-                        alt_text='特殊訊息',
-                        template=ConfirmTemplate(
-                            text='這堂課會你出席嗎?',
-                            actions=[
-                                PostbackTemplateAction(
-                                    label='出席',
-                                    data='presented~'+u
-                                ),
-                                PostbackTemplateAction(
-                                    label='請假',
-                                    data='leave~'+u
-                                )
-                            ]
-                        )
-                    )
-                    line_bot_api.push_message(u,message)
-            else:
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userdict[event.source.user_id]+"你好"))
-        else:
-            message = TemplateSendMessage(
-                alt_text='特殊訊息(手機版限定)',
-                template=ConfirmTemplate(
-                    text='您叫做'+event.message.text+'對嗎?',
-                    actions=[
-                        PostbackTemplateAction(
-                            label='對',
-                            data='right~'+event.message.text
-                        ),
-                        PostbackTemplateAction(
-                            label='不是',
-                            data='wrong~'
-                        )
-                    ]
-                )
-            )
-            line_bot_api.reply_message(event.reply_token, message)
-    except:
-        userdict[event.source.user_id] = 'none'
-        with open("user_dic",'w') as f:
-            f.write(str(userdict))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的名字'))
+    t = ""
+    for u in GetUserList():
+        t += u[0] + ' ' + u[1] + ' ' + u[2] + '\n'
+    message = TextSendMessage(text=t)
+    line_bot_api.reply_message(event.reply_token, message)
     
-@handler.add(PostbackEvent)
-def handle_postback(event):
-    userdict = {}
-    with open("user_dic",'r') as f:
-        userdict = eval(f.readline().strip())
-        
-    if event.postback.data.split('~')[0] == 'wrong':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='請再次輸入您的姓名'))
-    elif event.postback.data.split('~')[0] == 'right':
-        userdict[event.source.user_id] = event.postback.data.split('~')[1]
-        with open("user_dic",'w') as f:
-            f.write(str(userdict))
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text='儲存成功'))
-    elif event.postback.data.split('~')[0] == 'presented':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你會出席，老師已經收到了'))
-        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他會出席'))
-    elif event.postback.data.split('~')[0] == 'leave':
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text = '你要請假，老師已經收到了'))
-        line_bot_api.push_message('Uf29fc2131c95dd4e7c58787e878ec504', TextSendMessage(text = userdict[event.postback.data.split('~')[1]]+'說他要請假'))
-
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
