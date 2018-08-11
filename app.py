@@ -55,11 +55,14 @@ def GetUserList():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    t = ""
-    for u in GetUserList():
-        t += u[0] + ' ' + u[1] + ' ' + u[2] + '\n'
-    message = TextSendMessage(text=t)
-    line_bot_api.reply_message(event.reply_token, message)
+    try:
+        t = ""
+        for u in GetUserList():
+            t += u[0] + ' ' + u[1] + ' ' + u[2] + '\n'
+        message = TextSendMessage(text=t)
+        line_bot_api.reply_message(event.reply_token, message)
+    except:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤"))
     
 import os
 if __name__ == "__main__":
