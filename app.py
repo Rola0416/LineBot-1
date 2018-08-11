@@ -43,14 +43,7 @@ def GetUserList():
         'endCol' : 20
     }
     resp = requests.get(url, params=payload)
-    userlist = resp.text.split(',')
-    for i in range(num(userlist)):
-        if userlist[i] == '':
-            del userlist[i]
-    users = []
-    for i in range(num(userlist)/3):
-        users.append([userlist[i],userlist[i+1],userlist[i+2]])
-    return users
+    return resp.text.split(',')
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -58,7 +51,7 @@ def handle_message(event):
     try:
         t = ""
         for u in GetUserList():
-            t += u[0] + ' ' + u[1] + ' ' + u[2] + '\n'
+            t += u + ' '
         message = TextSendMessage(text=t)
         line_bot_api.reply_message(event.reply_token, message)
     except:
