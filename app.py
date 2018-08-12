@@ -61,15 +61,29 @@ def GetUserList():
             break
     return userlist
 
+def Login(user_id,userlist):
+    for user in userlist:
+        if user.ID == user_id:
+            return userlist.index(user)
+    return -1
+
+def Signup(user_id,index):
+    if index < 0:
+        
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
     try:
-        t = ""
-        for u in GetUserList():
-            t += u.Name + ' ' + u.ID + ' ' + u.Status +'\n'
-        message = TextSendMessage(text=t.strip())
-        line_bot_api.reply_message(event.reply_token, message)
+        userlist = GetUserList()
+        clientindex = Login(event.source.user_id)
+        if clientindex > -1:
+            if userlist[clientindex].Name != 'none000':
+                #開始使用功能
+            else:
+                #註冊
+        else:
+            #前置註冊
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01"))
     
