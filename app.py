@@ -80,7 +80,7 @@ def Signup(index,text):
     else:
         url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
         payload = {
-            'sheetUrl':"https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec",
+            'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
             'sheetTag':"成員列表",
             'type':"change",
             'x':str(index+1),
