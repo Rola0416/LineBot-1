@@ -53,9 +53,9 @@ def GetUserList():
     temp = resp.text.split(',')
     userlist = []
     i = 0
-    while i < num(temp):
-        if i not "":
-            userlist.append(user(i,i+1,i+2))
+    while i < len(temp):
+        if temp[i] != "":
+            userlist.append(user(temp[i],temp[i+1],temp[i+2]))
             i+=3
     return userlist
 
