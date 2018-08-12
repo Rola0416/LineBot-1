@@ -57,6 +57,8 @@ def GetUserList():
         if temp[i] != "":
             userlist.append(user(temp[i],temp[i+1],temp[i+2]))
             i+=3
+        else:
+            break
     return userlist
 
 # 處理訊息
