@@ -68,7 +68,7 @@ def handle_message(event):
         t = ""
         for u in GetUserList():
             t += u.Name + ' ' + u.ID + ' ' + u.Status +'\n'
-        message = TextSendMessage(text=t+'\b')
+        message = TextSendMessage(text=t.strip())
         line_bot_api.reply_message(event.reply_token, message)
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01"))
