@@ -67,9 +67,27 @@ def Login(user_id,userlist):
             return userlist.index(user)
     return -1
 
-def Signup(user_id,index):
+def Signup(index,text):
     if index < 0:
-        
+        url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
+        payload = {
+            'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
+            'sheetTag':"成員列表",
+            'type':'add'
+            'data':'none000,'+text+',學生'
+        }
+        requests.get(url, params=payload)
+    else:
+        url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
+        payload = {
+            'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
+            'sheetTag':"成員列表",
+            'type':'change'
+            'x':index
+            'y':1
+            'data':text
+        }
+        requests.get(url, params=payload)
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
@@ -81,9 +99,12 @@ def handle_message(event):
             if userlist[clientindex].Name != 'none000':
                 #開始使用功能
             else:
-                #註冊
+                Signup(clientindext,event.message.text)
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text='註冊成功!歡迎您~'))
         else:
-            #前置註冊
+            Signup(clientindext,event.source.user_id)
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的姓名'))
+            
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01"))
     
