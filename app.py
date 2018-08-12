@@ -97,6 +97,7 @@ def handle_message(event):
         clientindex = Login(event.source.user_id,userlist)
         if clientindex > -1:
             if userlist[clientindex].Name != 'none000':
+                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userlist[clientindex].Name))
                 #開始使用功能
             else:
                 Signup(clientindex,event.message.text)
