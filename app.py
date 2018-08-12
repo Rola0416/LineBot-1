@@ -85,7 +85,7 @@ def Signup(index,text):
             'type':'change',
             'x':index+1,
             'y':1,
-            'data':text
+            'data':index
         }
         requests.get(url, params=payload)
 
