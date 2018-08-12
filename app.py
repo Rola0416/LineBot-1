@@ -99,10 +99,10 @@ def handle_message(event):
             if userlist[clientindex].Name != 'none000':
                 #開始使用功能
             else:
-                Signup(clientindext,event.message.text)
+                Signup(clientindex,event.message.text)
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text='註冊成功!歡迎您~'))
         else:
-            Signup(clientindext,event.source.user_id)
+            Signup(clientindex,event.source.user_id)
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的姓名'))
             
     except:
