@@ -44,7 +44,7 @@ def GetUserList():
     payload = {
         'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
         'sheetTag':"成員列表",
-        'row': 2,
+        'row': 1,
         'col': 1,
         'endRow' : 51,
         'endCol' : 20
