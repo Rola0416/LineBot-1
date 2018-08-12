@@ -83,8 +83,8 @@ def Signup(index,text):
             'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
             'sheetTag':"成員列表",
             'type':"change",
-            'x':index+1,
-            'y':1,
+            'x':str(index+1),
+            'y':'1',
             'data':text
         }
         requests.get(url, params=payload)
