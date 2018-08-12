@@ -94,7 +94,7 @@ def Signup(index,text):
 def handle_message(event):
     try:
         userlist = GetUserList()
-        clientindex = Login(event.source.user_id)
+        clientindex = Login(event.source.user_id,userlist)
         if clientindex > -1:
             if userlist[clientindex].Name != 'none000':
                 #開始使用功能
