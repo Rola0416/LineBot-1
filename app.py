@@ -33,7 +33,7 @@ def callback():
 
 #user類別
 class user:
-    def __init__(self,Name,ID,Status):
+    def __init__(self,ID,Name,Status):
         self.Name = Name
         self.ID = ID
         self.Status = Status
