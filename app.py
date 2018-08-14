@@ -101,7 +101,7 @@ def handle_message(event):
                             data='0`t`'+event.message.text
                         ),
                         PostbackTemplateAction(
-                            label='postback',
+                            label='不對',
                             data='0`f'
                         )
                     ]
