@@ -271,8 +271,8 @@ def handle_message(event):
             Write(clientindex,-1)
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="要回答請點擊題目下方的按鈕喔"))
-    except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01"))
+    except BaseException,Argument:
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01\n"+Argument))
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
