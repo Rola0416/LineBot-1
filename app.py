@@ -117,6 +117,7 @@ def handle_postback(event):
     if data[0] == '0' and clientindex < 0:
         if data[1] == 't':
             Signup(event.source.user_id,data[2])
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="註冊成功，歡迎來到LineBot世界"))
         elif data[1] == 'f':
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="請再次輸入您的姓名"))
     
