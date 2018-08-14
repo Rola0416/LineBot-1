@@ -9,6 +9,7 @@ from linebot.exceptions import (
 from linebot.models import *
 import requests
 import random
+import sys
 
 app = Flask(__name__)
 
@@ -272,7 +273,7 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="要回答請點擊題目下方的按鈕喔"))
     except :
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01\n"))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(sys.exc_info()[0])))
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
