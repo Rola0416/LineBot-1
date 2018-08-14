@@ -9,7 +9,6 @@ from linebot.exceptions import (
 from linebot.models import *
 import requests
 import random
-import sys
 
 app = Flask(__name__)
 
@@ -130,7 +129,7 @@ def handle_message(event):
         Q = int(userlist[clientindex].Q)
         #開始使用功能
         if Q < 0:
-            ran = random.randint(0, 9)
+            ran = random.randint(0,9)
             if ran == 0:
                 line_bot_api.reply_message(event.reply_token,TextSendMessage(text="哪一條街永遠不下雨?"))
             elif ran == 1:
@@ -273,7 +272,7 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="要回答請點擊題目下方的按鈕喔"))
     except:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(sys.exc_info()[0])))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text="錯誤"))
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
@@ -306,7 +305,6 @@ def handle_postback(event):
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="錯，答案是「蜈蚣」，因為「無功(蜈蚣)不受祿」"))
         if Q > 4:
             Write(clientindex,2)
-    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
