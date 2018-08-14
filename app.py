@@ -9,6 +9,7 @@ from linebot.exceptions import (
 from linebot.models import *
 import requests
 import random
+import time
 
 app = Flask(__name__)
 
@@ -125,6 +126,7 @@ def handle_message(event):
         clientindex = Login(event.source.user_id,userlist)
         if clientindex == -1:
             Signup(event.source.user_id)
+            time.sleep(2)
             clientindex = Login(event.source.user_id,userlist)
         Q = int(userlist[clientindex].Q)
         #開始使用功能
