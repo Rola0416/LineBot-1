@@ -61,12 +61,14 @@ def GetUserList():
             break
     return userlist
 
+#登入
 def Login(user_id,userlist):
     for user in userlist:
         if user.ID == user_id:
             return userlist.index(user)
     return -1
 
+#註冊
 def Signup(user_id,name):
     url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
     payload = {
@@ -109,6 +111,7 @@ def handle_message(event):
 @handler.add(PostbackEvent)
 def handle_postback(event):
     data = event.postback.data.split('`')
+    #註冊用
     if data[0] == '0':
         if data[1] == 't':
             Signup(event.source.user_id,data[2])
