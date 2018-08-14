@@ -304,7 +304,7 @@ def handle_postback(event):
             elif Q == 9:
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text="錯，答案是「蜈蚣」，因為「無功(蜈蚣)不受祿」"))
         if Q > 4:
-            Write(clientindex,2)
+            Write(clientindex,-1)
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
