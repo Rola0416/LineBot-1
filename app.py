@@ -126,7 +126,7 @@ def handle_message(event):
         clientindex = Login(event.source.user_id,userlist)
         if clientindex == -1:
             Signup(event.source.user_id)
-            time.sleep(2)
+            userlist = GetUserList()
             clientindex = Login(event.source.user_id,userlist)
         Q = int(userlist[clientindex].Q)
         #開始使用功能
