@@ -272,7 +272,7 @@ def handle_message(event):
         else:
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="要回答請點擊題目下方的按鈕喔"))
     except Exception as e:
-        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=e))
+        line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(e)))
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
