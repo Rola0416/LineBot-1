@@ -110,9 +110,11 @@ def handle_message(event):
     
 @handler.add(PostbackEvent)
 def handle_postback(event):
+    userlist = GetUserList()
+    clientindex = Login(event.source.user_id,userlist)
     data = event.postback.data.split('`')
     #註冊用
-    if data[0] == '0':
+    if data[0] == '0' and clientindex < 0:
         if data[1] == 't':
             Signup(event.source.user_id,data[2])
         elif data[1] == 'f':
