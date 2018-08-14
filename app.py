@@ -83,12 +83,8 @@ def handle_message(event):
         userlist = GetUserList()
         clientindex = Login(event.source.user_id,userlist)
         if clientindex > -1:
-            if userlist[clientindex].Name != 'none000':
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userlist[clientindex].Name))
-                #開始使用功能
-            else:
-                Signup(clientindex,event.message.text)
-                line_bot_api.reply_message(event.reply_token, TextSendMessage(text='註冊成功!歡迎您~'))
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text=userlist[clientindex].Name))
+            #開始使用功能
         else:
             message = TemplateSendMessage(
                 alt_text='確認姓名(手機限定)',
