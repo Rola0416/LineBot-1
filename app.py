@@ -67,25 +67,13 @@ def Login(user_id,userlist):
             return userlist.index(user)
     return -1
 
-def Signup(index,text):
+def Signup(user_id,name):
     if index < 0:
         url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
         payload = {
             'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
             'sheetTag':"成員列表",
-            'type':'add',
-            'data':'none000,'+text+',學生'
-        }
-        requests.get(url, params=payload)
-    else:
-        url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
-        payload = {
-            'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
-            'sheetTag':"成員列表",
-            'type':"change",
-            'x':index+1,
-            'y':1,
-            'data':text
+            'data':user_id+','+name+',學生'
         }
         requests.get(url, params=payload)
 
@@ -103,11 +91,34 @@ def handle_message(event):
                 Signup(clientindex,event.message.text)
                 line_bot_api.reply_message(event.reply_token, TextSendMessage(text='註冊成功!歡迎您~'))
         else:
-            Signup(clientindex,event.source.user_id)
-            line_bot_api.reply_message(event.reply_token, TextSendMessage(text='初次使用，請輸入您的姓名'))
-            
+            message = TemplateSendMessage(
+                alt_text='確認姓名(手機限定)',
+                template=ConfirmTemplate(
+                    text='初次使用需要登記姓名\n您叫做'+event.message.text+'嗎?',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='對',
+                            data='0`t`'+event.message.text
+                        ),
+                        PostbackTemplateAction(
+                            label='postback',
+                            data='0`f'
+                        )
+                    ]
+                )
+            )
+            line_bot_api.reply_message(event.reply_token, message)
     except:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text="發生錯誤01"))
+    
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    data = event.postback.data.split('`')
+    if data[0] == '0':
+        if data[1] == 't':
+            Signup(event.source.user_id,data[2])
+        elif data[1] == 'f':
+            line_bot_api.reply_message(event.reply_token, TextSendMessage(text="請再次輸入您的姓名"))
     
 import os
 if __name__ == "__main__":
