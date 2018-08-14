@@ -36,7 +36,7 @@ def callback():
 class user:
     def __init__(self,ID,Q):
         self.ID = ID
-        self.num = Q
+        self.Q = Q
 
 #讀取成員名單
 def GetUserList():
