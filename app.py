@@ -47,7 +47,7 @@ def GetUserList():
         'row': 1,
         'col': 1,
         'endRow' : 51,
-        'endCol' : 20
+        'endCol' : 2
     }
     resp = requests.get(url, params=payload)
     temp = resp.text.split(',')
@@ -128,6 +128,8 @@ def handle_message(event):
             clientindex = Login(event.source.user_id,userlist)
         Q = int(userlist[clientindex].Q)
         #開始使用功能
+        line_bot_api.reply_message(event.reply_token,TextSendMessage(text=str(Q)))
+        '''
         if Q < 0:
             ran = random.randint(0,9)
             if ran == 0:
@@ -273,7 +275,7 @@ def handle_message(event):
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="要回答請點擊題目下方的按鈕喔"))
     except Exception as e:
         line_bot_api.reply_message(event.reply_token, TextSendMessage(text=str(e)))
-    
+    '''
 @handler.add(PostbackEvent)
 def handle_postback(event):
     userlist = GetUserList()
