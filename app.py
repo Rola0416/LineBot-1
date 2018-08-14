@@ -68,14 +68,13 @@ def Login(user_id,userlist):
     return -1
 
 def Signup(user_id,name):
-    if index < 0:
-        url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
-        payload = {
-            'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
-            'sheetTag':"成員列表",
-            'data':user_id+','+name+',學生'
-        }
-        requests.get(url, params=payload)
+    url = "https://script.google.com/macros/s/AKfycbxn7Slc2_sKHTc6uEy3zmm3Bh_4duiGCXLavUM3RB0a3yzjAxc/exec"
+    payload = {
+        'sheetUrl':"https://docs.google.com/spreadsheets/d/118ZANXoqpYW9BA5MTr58QsWKt1ZkxIphVRS6tZ3dzqo/edit#gid=0",
+        'sheetTag':"成員列表",
+        'data':user_id+','+name+',學生'
+    }
+    requests.get(url, params=payload)
 
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
