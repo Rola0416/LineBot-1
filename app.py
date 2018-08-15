@@ -121,6 +121,10 @@ def handle_postback(event):
         elif data[1] == 'f':
             line_bot_api.reply_message(event.reply_token, TextSendMessage(text="請再次輸入您的姓名"))
     
+@handler.add(FollowEvent)
+def handle_follow(event):
+    line_bot_api.reply_message(event.reply_token, TextSendMessage(text="初次使用需輸入姓名，請問您的名字是?"))
+    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
