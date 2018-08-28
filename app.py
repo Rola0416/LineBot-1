@@ -118,7 +118,7 @@ def handle_postback(event):
         c = card[i].split('`')
         
         if c[0] == '大吉':
-            url = 'https://lh3.googleusercontent.com/ecSKhVOu1bnl_O0BGd_l4EVdwko6vZVHQflVaDxCNIoTCF94xev8d6o6OXRziew2zyQWfKMDPrZd13N0m95q=w1920-h931-rw'
+            url = 'https://lh3.googleusercontent.com/KD8PnMJQvctPjzvWBl7A9z2i8La3IQduU69q0bswsOelxscxqmcA3ptiVWjMh-ehpGv31D0sJgfkoYHjngBH=w1920-h981-rw'
         elif c[0] == '吉':
             url = 'https://lh3.googleusercontent.com/GCe3AcvJZVFCOcqnKwpyAsSJth3uhbvdR1Q6ACqqgpM_9FSlckOKSEDy_lNDuc4bqEY_wfaVmy8fA0P2yseY=w1920-h981-rw'
         elif c[0] == '平':
