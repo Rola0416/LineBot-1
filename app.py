@@ -7,6 +7,7 @@ from linebot.exceptions import (
     InvalidSignatureError
 )
 from linebot.models import *
+import random
 
 app = Flask(__name__)
 
@@ -30,11 +31,84 @@ def callback():
         abort(400)
     return 'OK'
 
+card = ['大吉`只要時常保持微笑，\n全世界的好運都會跑到你的身邊呢!',
+            '大吉`待人和善的你就像行走在世間的天使，\n又何須擔心甚麼厄運呢?',
+            '吉`若是感覺到了身邊的人帶給你的愛，\n記得也送他們一個大大的笑容喔!',
+            '吉`只要相信自己，\n沒有我們做不到的事!',
+            '平`若是生活一如往常，\n不也是一件好事嗎?',
+            '凶`凡事宜謹慎，勿躁進',
+            '大凶`無論遇到什麼事情，\n都不要忘了與你同在的人們']
+
+def PickCard():
+    message = TemplateSendMessage(
+        alt_text='占星牌(手機限定)',
+        template=CarouselTemplate(
+            columns=[
+                CarouselColumn(
+                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    title='占星卡',
+                    text='抽一張吧!',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='抽卡',
+                            data='抽卡`' + str(random.randint(0,len(card)-1))
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    title='占星卡',
+                    text='抽一張吧!',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='抽卡',
+                            data='抽卡`' + str(random.randint(0,len(card)-1))
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    title='占星卡',
+                    text='抽一張吧!',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='抽卡',
+                            data='抽卡`' + str(random.randint(0,len(card)-1))
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    title='占星卡',
+                    text='抽一張吧!',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='抽卡',
+                            data='抽卡`' + str(random.randint(0,len(card)-1))
+                        )
+                    ]
+                ),
+                CarouselColumn(
+                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    title='占星卡',
+                    text='抽一張吧!',
+                    actions=[
+                        PostbackTemplateAction(
+                            label='抽卡',
+                            data='抽卡`' + str(random.randint(0,len(card)-1))
+                        )
+                    ]
+                )
+            ]
+        )
+    )
+    return message
+    
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    message = TextSendMessage(text=event.message.text)
-    line_bot_api.reply_message(event.reply_token, message)
+    line_bot_api.reply_message(event.reply_token, PickCard())
 
 import os
 if __name__ == "__main__":
