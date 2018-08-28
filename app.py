@@ -110,6 +110,40 @@ def PickCard():
 def handle_message(event):
     line_bot_api.reply_message(event.reply_token, PickCard())
 
+@handler.add(PostbackEvent)
+def handle_postback(event):
+    data = event.postback.data.split('`')
+    if data[0] == '抽卡':
+        i = int(data[1])
+        c = card[i].split('`')
+        
+        if c[0] == '大吉':
+            url = 'https://lh3.googleusercontent.com/ecSKhVOu1bnl_O0BGd_l4EVdwko6vZVHQflVaDxCNIoTCF94xev8d6o6OXRziew2zyQWfKMDPrZd13N0m95q=w1920-h931-rw'
+        elif c[0] == '吉':
+            url = 'https://lh3.googleusercontent.com/adUIxDSsvc7U8_wFzgmrWXQypLHuyGkZWj4xzTaV-oWXv9xQ8xfq4nMHKqJ9PzdRKEpX3381HT3VkjhOKE_u=w1920-h931-rw'
+        elif c[0] == '平':
+            url = 'https://lh3.googleusercontent.com/r1b8IY5WvZ68IC0B4lmok4gwNSAAVHFj8PwkcLTetUyZznVzDtX8cw2NYLYke1W8q3Fw0aHrvERXzjG5Zow_=w1920-h931-rw'
+        elif c[0] == '凶':
+            url = 'https://lh3.googleusercontent.com/Tn5VNq9KIf_Wjtj7ALus0k5J-OpmqEEAKswgKuerrOr1whHK76iVSGyRVoHlKOW_9xIE4J0CiJM7ayltRZWS=w1920-h931-rw'
+        elif c[0] == '大凶':
+            url = 'https://lh4.googleusercontent.com/dhDEM83DVpZltvmtPeRXtbpJeBwgujkmO5OHkHcr2PRBlkT3n9lzA9d7vni-Kod5pnLEG9tH5rENAPoRcxGn=w1920-h931-rw'
+        message = TemplateSendMessage(
+            alt_text='占星卡(手機限定)',
+            template=ButtonsTemplate(
+                thumbnail_image_url=url,
+                title=c[0],
+                text=c[1],
+                actions=[
+                    MessageTemplateAction(
+                        label='讚',
+                        text='讚喔'
+                    )
+                ]
+            )
+        )
+line_bot_api.reply_message(event.reply_token, message)
+        
+    
 import os
 if __name__ == "__main__":
     port = int(os.environ.get('PORT', 5000))
