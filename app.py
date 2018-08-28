@@ -108,7 +108,15 @@ def PickCard():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token, PickCard())
+    if event.message.text == '占星卡':
+        line_bot_api.reply_message(event.reply_token, PickCard())
+    elif event.message.text == '讚喔':
+        message = StickerSendMessage(
+            package_id='2',
+            sticker_id='36'
+        )
+        line_bot_api.reply_message(event.reply_token, message)
+
 
 @handler.add(PostbackEvent)
 def handle_postback(event):
