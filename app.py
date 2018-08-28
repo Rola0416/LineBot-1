@@ -45,7 +45,7 @@ def PickCard():
         template=CarouselTemplate(
             columns=[
                 CarouselColumn(
-                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
                     title='占星卡',
                     text='抽一張吧!',
                     actions=[
@@ -56,7 +56,7 @@ def PickCard():
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
                     title='占星卡',
                     text='抽一張吧!',
                     actions=[
@@ -67,7 +67,7 @@ def PickCard():
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
                     title='占星卡',
                     text='抽一張吧!',
                     actions=[
@@ -78,7 +78,7 @@ def PickCard():
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
                     title='占星卡',
                     text='抽一張吧!',
                     actions=[
@@ -89,7 +89,7 @@ def PickCard():
                     ]
                 ),
                 CarouselColumn(
-                    thumbnail_image_url='https://drive.google.com/open?id=1sCZuVhCWXeH9slQ4ninnLpsjW4qEjXZ6',
+                    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
                     title='占星卡',
                     text='抽一張吧!',
                     actions=[
