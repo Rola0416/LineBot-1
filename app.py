@@ -124,13 +124,13 @@ def handle_postback(event):
         elif c[0] == '平':
             url = 'https://lh3.googleusercontent.com/r1b8IY5WvZ68IC0B4lmok4gwNSAAVHFj8PwkcLTetUyZznVzDtX8cw2NYLYke1W8q3Fw0aHrvERXzjG5Zow_=w1920-h931-rw'
         elif c[0] == '凶':
-            url = 'https://lh3.googleusercontent.com/Tn5VNq9KIf_Wjtj7ALus0k5J-OpmqEEAKswgKuerrOr1whHK76iVSGyRVoHlKOW_9xIE4J0CiJM7ayltRZWS=w1920-h931-rw'
+            url = 'https://lh5.googleusercontent.com/LV5uSJrkBf_DpRi3U217lePJhjIsTjbhWeVT5_kb9H7Hzv_njPJt8RHTjSR-LeITRUkIRt-sB0sTk5ftK_2v=w1920-h981-rw'
         elif c[0] == '大凶':
             url = 'https://lh4.googleusercontent.com/dhDEM83DVpZltvmtPeRXtbpJeBwgujkmO5OHkHcr2PRBlkT3n9lzA9d7vni-Kod5pnLEG9tH5rENAPoRcxGn=w1920-h931-rw'
         message = TemplateSendMessage(
             alt_text='占星卡(手機限定)',
             template=ButtonsTemplate(
-                thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM',
+                thumbnail_image_url='https://lh5.googleusercontent.com/LV5uSJrkBf_DpRi3U217lePJhjIsTjbhWeVT5_kb9H7Hzv_njPJt8RHTjSR-LeITRUkIRt-sB0sTk5ftK_2v=w1920-h981-rw',
                 title=c[0],
                 text=c[1],
                 actions=[
