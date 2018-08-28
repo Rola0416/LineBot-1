@@ -130,7 +130,7 @@ def handle_postback(event):
         message = TemplateSendMessage(
             alt_text='占星卡(手機限定)',
             template=ButtonsTemplate(
-                thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
+                thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM',
                 title=c[0],
                 text=c[1],
                 actions=[
