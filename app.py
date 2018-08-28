@@ -120,7 +120,7 @@ def handle_postback(event):
         if c[0] == '大吉':
             url = 'https://lh3.googleusercontent.com/KD8PnMJQvctPjzvWBl7A9z2i8La3IQduU69q0bswsOelxscxqmcA3ptiVWjMh-ehpGv31D0sJgfkoYHjngBH=w1920-h981-rw'
         elif c[0] == '吉':
-            url = 'https://lh3.googleusercontent.com/GCe3AcvJZVFCOcqnKwpyAsSJth3uhbvdR1Q6ACqqgpM_9FSlckOKSEDy_lNDuc4bqEY_wfaVmy8fA0P2yseY=w1920-h981-rw'
+            url = 'https://lh5.googleusercontent.com/caOIkCgmZL4-9pnU4_LlQDdmDwCFFVNUX2utikIsxUoFjWRLbwySSzylTXbV_j4FEwUHNL2hmUd-EeB3b5Zw=w1920-h981-rw'
         elif c[0] == '平':
             url = 'https://lh5.googleusercontent.com/CwVQFu-ZevOsWbNC3L0aisNw6a84as02_5Yd2QENNJ1Z2hIheM8ylMr5kNDHlup8bxWIefWGC79WSwQ2Is5p=w1920-h981-rw'
         elif c[0] == '凶':
