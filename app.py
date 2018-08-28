@@ -120,17 +120,17 @@ def handle_postback(event):
         if c[0] == '大吉':
             url = 'https://lh3.googleusercontent.com/ecSKhVOu1bnl_O0BGd_l4EVdwko6vZVHQflVaDxCNIoTCF94xev8d6o6OXRziew2zyQWfKMDPrZd13N0m95q=w1920-h931-rw'
         elif c[0] == '吉':
-            url = 'https://lh3.googleusercontent.com/adUIxDSsvc7U8_wFzgmrWXQypLHuyGkZWj4xzTaV-oWXv9xQ8xfq4nMHKqJ9PzdRKEpX3381HT3VkjhOKE_u=w1920-h931-rw'
+            url = 'https://lh3.googleusercontent.com/GCe3AcvJZVFCOcqnKwpyAsSJth3uhbvdR1Q6ACqqgpM_9FSlckOKSEDy_lNDuc4bqEY_wfaVmy8fA0P2yseY=w1920-h981-rw'
         elif c[0] == '平':
-            url = 'https://lh3.googleusercontent.com/r1b8IY5WvZ68IC0B4lmok4gwNSAAVHFj8PwkcLTetUyZznVzDtX8cw2NYLYke1W8q3Fw0aHrvERXzjG5Zow_=w1920-h931-rw'
+            url = 'https://lh5.googleusercontent.com/CwVQFu-ZevOsWbNC3L0aisNw6a84as02_5Yd2QENNJ1Z2hIheM8ylMr5kNDHlup8bxWIefWGC79WSwQ2Is5p=w1920-h981-rw'
         elif c[0] == '凶':
             url = 'https://lh5.googleusercontent.com/LV5uSJrkBf_DpRi3U217lePJhjIsTjbhWeVT5_kb9H7Hzv_njPJt8RHTjSR-LeITRUkIRt-sB0sTk5ftK_2v=w1920-h981-rw'
         elif c[0] == '大凶':
-            url = 'https://lh4.googleusercontent.com/dhDEM83DVpZltvmtPeRXtbpJeBwgujkmO5OHkHcr2PRBlkT3n9lzA9d7vni-Kod5pnLEG9tH5rENAPoRcxGn=w1920-h931-rw'
+            url = 'https://lh5.googleusercontent.com/wHuPZ9rsywjZXK7k_ugI_rKpzxjpqvWsIan0RLanucSXMfhDm59yHKqYqBzF6deQRAdAl7KKZvND_IanK5q0=w1920-h981-rw'
         message = TemplateSendMessage(
             alt_text='占星卡(手機限定)',
             template=ButtonsTemplate(
-                thumbnail_image_url='https://lh5.googleusercontent.com/LV5uSJrkBf_DpRi3U217lePJhjIsTjbhWeVT5_kb9H7Hzv_njPJt8RHTjSR-LeITRUkIRt-sB0sTk5ftK_2v=w1920-h981-rw',
+                thumbnail_image_url=url,
                 title=c[0],
                 text=c[1],
                 actions=[
