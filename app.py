@@ -30,12 +30,30 @@ def callback():
         abort(400)
     return 'OK'
 
+a = CarouselColumn(
+    thumbnail_image_url='https://lh5.googleusercontent.com/4WYOIBDNVD6E-4IaH6u8D2JIpmbWOKla4NK_B6P6WajRyc7cgocqS70iR4ZRxOY6rDeif22t7bzM1cyos60Z=w1920-h931',
+    title='占星卡',
+    text='抽一張吧!',
+    actions=[
+        PostbackTemplateAction(
+            label='抽卡',
+            data='抽卡`' + str(random.randint(0,len(card)-1))
+        )
+    ]
+)
+
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    t = event.type + "  " + event.source.type
-    message = TextSendMessage(text=t)
-    line_bot_api.reply_message(event.reply_token, message)
+    message = TemplateSendMessage(
+        alt_text='占星牌(手機限定)',
+        template=CarouselTemplate(
+            columns=[
+                a,a,a
+            ]
+        )
+    )
+    return message
 
 import os
 if __name__ == "__main__":
