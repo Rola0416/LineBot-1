@@ -1,4 +1,4 @@
-# Line Bot + Python 教學 - WMD搞定學院 #
+# Line Bot + Python 教學 #
 
 ## 1-1 事前準備
 請先註冊以下兩個網站的帳號  
