@@ -36,7 +36,7 @@ def handle_message(event):
     line_bot_api.reply_message(event.reply_token, TextSendMessage(text = ReplyFunc(event.message.text)))
 
 def ReplyFunc(text):
-    if text.find("hi") :
+    if text.find('hi') != -1 :
         return 'hello'
     eles:
         return text
