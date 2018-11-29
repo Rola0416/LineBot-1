@@ -33,13 +33,9 @@ def callback():
 # 處理訊息
 @handler.add(MessageEvent, message=TextMessage)
 def handle_message(event):
-    line_bot_api.reply_message(event.reply_token, TextSendMessage(text = ReplyFunc(event.message.text)))
-
-def ReplyFunc(text):
-    if text.find('hi') != -1 :
-        return 'hello'
-    eles:
-        return text
+    if event.message.text == 'Hi' :
+        message = TextSendMessage(text='Hello')
+        line_bot_api.reply_message(event.reply_token, message)
 
 import os
 if __name__ == "__main__":
